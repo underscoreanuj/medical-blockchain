@@ -1,0 +1,109 @@
+from django.db import models
+
+
+class Member(models.Model):
+    # Gender choices constants
+    MALE = 'M'
+    FEMALE = 'F'
+
+    GENDER_CHOICES = [
+        (MALE, 'Male'),
+        (FEMALE, 'Female')
+    ]
+
+    MemberID = models.CharField(max_length=100)
+    Patient_DOB = models.DateField()
+    Patient_Gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default=MALE)
+
+    def __str__(self):
+        return str(self.MemberID)
+
+
+class Episode(models.Model):
+    # disposition choices constants
+    RWTL = 'ReleasedWithoutLimitations'
+    RWL = 'ReleasedWithLimitations'
+    SAH = 'SickAtHome'
+    ADMT = 'Admitted'
+
+    DISPOSITION_CHOICES = [
+        (RWTL, 'Released without limitations'),
+        (RWL, 'Released with limitations'),
+        (SAH, 'Sick at Home'),
+        (ADMT, 'Admitted')
+    ]
+
+    Episode_ID = models.CharField(max_length=100)
+    Disposition = models.CharField(max_length=100, choices=DISPOSITION_CHOICES, default=SAH)
+    SOAP_Note = models.TextField()
+    member = models.ForeignKey(Member, related_name='episodes', on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.Episode_ID)
+
+
+class EncounterBase(models.Model):
+    Encounter_ID = models.CharField(max_length=100)
+    Clinic_ID = models.CharField(max_length=100)
+    Encounter_DateTime = models.DateTimeField()
+    Encounter_Description = models.TextField()
+    Provider_ID_x = models.BigIntegerField()
+    Provider_NPI = models.BigIntegerField()
+    Provider_Name = models.CharField(max_length=100)
+
+    # to store location
+    lat = models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
+    lon = models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
+
+
+class Medical(EncounterBase):
+    CC = models.CharField(max_length=100)
+    Specialty_x = models.CharField(max_length=100)
+    episode = models.ForeignKey(Episode, related_name='medical_encounters', on_delete=models.CASCADE,
+                                blank=True, null=True)
+
+    def __str__(self):
+        return str(self.Encounter_ID)
+
+
+class Emergency(EncounterBase):
+    CC = models.CharField(max_length=100)
+    Specialty_x = models.CharField(max_length=100)
+    episode = models.ForeignKey(Episode, related_name='emergency_encounters', on_delete=models.CASCADE,
+                                blank=True, null=True)
+
+    def __str__(self):
+        return str(self.Encounter_ID)
+
+
+class Lab(EncounterBase):
+    Test_ID = models.CharField(max_length=100)
+    Order_ID_x = models.CharField(max_length=100)
+    Test_Name = models.CharField(max_length=100)
+    Units_x = models.CharField(max_length=100)
+    Result_Name = models.CharField(max_length=100)
+    Result_Status = models.CharField(max_length=100)
+    Date_Collected = models.DateTimeField()
+    Date_Resulted = models.DateTimeField()
+    Numeric_Result = models.BigIntegerField()
+    episode = models.ForeignKey(Episode, related_name='lab_encounters', on_delete=models.CASCADE, blank=True,
+                                null=True)
+
+    def __str__(self):
+        return str(self.Encounter_ID)
+
+
+class Pharmacy(EncounterBase):
+    Pharmacy_Name = models.CharField(max_length=100)
+    Prescription = models.CharField(max_length=100)
+    Drug_Name = models.CharField(max_length=100)
+    Units_y = models.CharField(max_length=100)
+    Days_Of_Supply = models.BigIntegerField()
+    Dispense_Date = models.DateTimeField()
+    Dispense_Qty = models.BigIntegerField()
+    Dose = models.BigIntegerField()
+    episode = models.ForeignKey(Episode, related_name='pharmacy_encounters', on_delete=models.CASCADE,
+                                blank=True, null=True)
+
+    def __str__(self):
+        return str(self.Encounter_ID)

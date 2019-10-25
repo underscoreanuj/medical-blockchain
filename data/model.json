@@ -1,0 +1,85 @@
+{
+    "MemberID": "568001602-01",
+    "Patient_DOB": "1972-02-24",
+    "Patient_Gender": "F",
+    "episodes": [
+        {
+            "Episode_ID": "L8694502508698944760",
+            "Disposition": "ReleasedWithoutLimitations",
+            "SOAP_Note": "s:a 33 year old female crystallographer presents with mild spells of vertigo, mild headaches particularly at the back of the head and in the morning x 2 weeks. pt also reports chronic mild occasional lightheadedness. o:Height 160 cm, Weight 53.8 kg, Temperature 37.3 C, Pulse 76, SystolicBP 146, DiastolicBP 93, Respiration 15, Heart = 2/6 systolic murmur at base of heart, Chest = clear to auscultation B/L, no rales or wheezing, Extremities = no edema or clubbing, Heart = normal S1, S2, RRR a:Hypertension p:performed E/M Level 2 (established patient) - Completed, and prescribed Hydrochlorothiazide - 50 mg po qd, and ordered Cholesterol.",
+            "medical_encounters": [
+                {
+                    "Encounter_ID": "M5086989447608694502",
+                    "Clinic_ID": "Sidney Hillman Health Center",
+                    "Encounter_DateTime": "2005-10-12T20:33:00Z",
+                    "Encounter_Description": "Lacy visited primary care physician on 6/30/2005 2:15:00 PM for ChiefComplaint",
+                    "Provider_ID_x": 663746638,
+                    "Provider_NPI": 2531462832,
+                    "Provider_Name": "Athena V Morris, MD",
+                    "lat": "32.4698351864755000",
+                    "lon": "24.8647546469835000",
+                    "CC": "mild occasional lightheadedness",
+                    "Specialty_x": "FAMILY PRACTICE/PRIMARY CARE"
+                }
+            ],
+            "emergency_encounters": [
+                {
+                    "Encounter_ID": "E5086989447608694502",
+                    "Clinic_ID": "Sidney Hillman Health Center",
+                    "Encounter_DateTime": "2005-07-24T14:18:00Z",
+                    "Encounter_Description": "Lacy visited emergency care physician for ChiefComplaint",
+                    "Provider_ID_x": 188105238,
+                    "Provider_NPI": 1962380097,
+                    "Provider_Name": "Chris Lamb, MD",
+                    "lat": null,
+                    "lon": null,
+                    "CC": "severe pain",
+                    "Specialty_x": "emergency healthcare"
+                }
+            ],
+            "lab_encounters": [
+                {
+                    "Encounter_ID": "X3228783097331248888",
+                    "Clinic_ID": "Wood Diagnostic Labs",
+                    "Encounter_DateTime": "2005-07-05T14:54:00Z",
+                    "Encounter_Description": "Lacy visited medical lab on 7/5/2005 9:54:00 AM for OngoingCare",
+                    "Provider_ID_x": 695700114,
+                    "Provider_NPI": 345756190,
+                    "Provider_Name": "Aquila F Whitney",
+                    "lat": "23.9765436513548000",
+                    "lon": "95.1635476889749000",
+                    "Test_ID": "050705 CH 76296541",
+                    "Order_ID_x": "050630-30199",
+                    "Test_Name": "Cholesterol",
+                    "Units_x": "mg/dL",
+                    "Result_Name": "Cholesterol",
+                    "Result_Status": "FINAL",
+                    "Date_Collected": "2005-07-05T15:54:00Z",
+                    "Date_Resulted": "2005-07-05T20:33:00Z",
+                    "Numeric_Result": 250
+                }
+            ],
+            "pharmacy_encounters": [
+                {
+                    "Encounter_ID": "V3046573432409333612",
+                    "Clinic_ID": "Corner Drug Store",
+                    "Encounter_DateTime": "2005-07-01T23:44:00Z",
+                    "Encounter_Description": "Lacy visited pharmacy on 7/1/2005 6:44:00 PM for OngoingCare",
+                    "Provider_ID_x": 523808810,
+                    "Provider_NPI": 1380097962,
+                    "Provider_Name": "Shelley A Lawson, RPh",
+                    "lat": "21.9874651432132000",
+                    "lon": "31.4321324987465000",
+                    "Pharmacy_Name": "Corner Drug Store",
+                    "Prescription": "RX80452720",
+                    "Drug_Name": "Hydrochlorothiazide",
+                    "Units_y": "mg",
+                    "Days_Of_Supply": 90,
+                    "Dispense_Date": "2005-07-02T00:14:00Z",
+                    "Dispense_Qty": 90,
+                    "Dose": 50
+                }
+            ]
+        }
+    ]
+}
