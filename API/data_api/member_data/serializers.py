@@ -18,7 +18,6 @@ class MedicalSerializer(serializers.ModelSerializer):
             'lon',
 
             # derived class
-            'CC',
             'Specialty_x',
         )
 
@@ -39,7 +38,6 @@ class EmergencySerializer(serializers.ModelSerializer):
             'lon',
 
             # derived class
-            'CC',
             'Specialty_x'
         )
 
@@ -111,6 +109,7 @@ class EpisodeSerializer(serializers.ModelSerializer):
             'Episode_ID',
             'Disposition',
             'SOAP_Note',
+            'CC',
             'medical_encounters',
             'emergency_encounters',
             'lab_encounters',

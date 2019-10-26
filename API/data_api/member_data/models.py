@@ -36,6 +36,7 @@ class Episode(models.Model):
     Episode_ID = models.CharField(max_length=100)
     Disposition = models.CharField(max_length=100, choices=DISPOSITION_CHOICES, default=SAH)
     SOAP_Note = models.TextField()
+    CC = models.CharField(max_length=100)
     member = models.ForeignKey(Member, related_name='episodes', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
@@ -57,7 +58,6 @@ class EncounterBase(models.Model):
 
 
 class Medical(EncounterBase):
-    CC = models.CharField(max_length=100)
     Specialty_x = models.CharField(max_length=100)
     episode = models.ForeignKey(Episode, related_name='medical_encounters', on_delete=models.CASCADE,
                                 blank=True, null=True)
@@ -67,7 +67,6 @@ class Medical(EncounterBase):
 
 
 class Emergency(EncounterBase):
-    CC = models.CharField(max_length=100)
     Specialty_x = models.CharField(max_length=100)
     episode = models.ForeignKey(Episode, related_name='emergency_encounters', on_delete=models.CASCADE,
                                 blank=True, null=True)
