@@ -11,12 +11,15 @@ class Member(models.Model):
         (FEMALE, 'Female')
     ]
 
-    MemberID = models.CharField(max_length=100)
+    MemberID = models.CharField(primary_key=True, unique=True, max_length=100)
     Patient_DOB = models.DateField()
     Patient_Gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default=MALE)
+    LastHash = models.TextField(null=True, blank=True, editable=False)
 
     def __str__(self):
-        return str(self.MemberID)
+        return '''
+        Member: {}
+        '''.format(str(self.MemberID))
 
 
 class Episode(models.Model):
@@ -33,18 +36,22 @@ class Episode(models.Model):
         (ADMT, 'Admitted')
     ]
 
-    Episode_ID = models.CharField(max_length=100)
+    Episode_ID = models.CharField(primary_key=True, unique=True, max_length=100)
+    Active = models.BooleanField(default=True, editable=False)
     Disposition = models.CharField(max_length=100, choices=DISPOSITION_CHOICES, default=SAH)
     SOAP_Note = models.TextField()
     CC = models.CharField(max_length=100)
-    member = models.ForeignKey(Member, related_name='episodes', on_delete=models.CASCADE, blank=True, null=True)
+    HistoryHash = models.TextField(null=True, blank=True, editable=False)
+    member = models.ForeignKey(Member, related_name='episodes', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.Episode_ID)
+        return '''
+        Episode: {} -- Member: {}
+        '''.format(str(self.Episode_ID), str(self.member.MemberID))
 
 
 class EncounterBase(models.Model):
-    Encounter_ID = models.CharField(max_length=100)
+    Encounter_ID = models.CharField(primary_key=True, unique=True, max_length=100)
     Clinic_ID = models.CharField(max_length=100)
     Encounter_DateTime = models.DateTimeField()
     Encounter_Description = models.TextField()
@@ -59,20 +66,22 @@ class EncounterBase(models.Model):
 
 class Medical(EncounterBase):
     Specialty_x = models.CharField(max_length=100)
-    episode = models.ForeignKey(Episode, related_name='medical_encounters', on_delete=models.CASCADE,
-                                blank=True, null=True)
+    episode = models.ForeignKey(Episode, related_name='medical_encounters', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.Encounter_ID)
+        return '''
+        Encounter: {} -- Episode: {} -- Member: {}
+        '''.format(str(self.Encounter_ID), str(self.episode.Episode_ID), str(self.episode.member.MemberID))
 
 
 class Emergency(EncounterBase):
     Specialty_x = models.CharField(max_length=100)
-    episode = models.ForeignKey(Episode, related_name='emergency_encounters', on_delete=models.CASCADE,
-                                blank=True, null=True)
+    episode = models.ForeignKey(Episode, related_name='emergency_encounters', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.Encounter_ID)
+        return '''
+        Encounter: {} -- Episode: {} -- Member: {}
+        '''.format(str(self.Encounter_ID), str(self.episode.Episode_ID), str(self.episode.member.MemberID))
 
 
 class Lab(EncounterBase):
@@ -85,11 +94,12 @@ class Lab(EncounterBase):
     Date_Collected = models.DateTimeField()
     Date_Resulted = models.DateTimeField()
     Numeric_Result = models.BigIntegerField()
-    episode = models.ForeignKey(Episode, related_name='lab_encounters', on_delete=models.CASCADE, blank=True,
-                                null=True)
+    episode = models.ForeignKey(Episode, related_name='lab_encounters', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.Encounter_ID)
+        return '''
+        Encounter: {} -- Episode: {} -- Member: {}
+        '''.format(str(self.Encounter_ID), str(self.episode.Episode_ID), str(self.episode.member.MemberID))
 
 
 class Pharmacy(EncounterBase):
@@ -101,8 +111,9 @@ class Pharmacy(EncounterBase):
     Dispense_Date = models.DateTimeField()
     Dispense_Qty = models.BigIntegerField()
     Dose = models.BigIntegerField()
-    episode = models.ForeignKey(Episode, related_name='pharmacy_encounters', on_delete=models.CASCADE,
-                                blank=True, null=True)
+    episode = models.ForeignKey(Episode, related_name='pharmacy_encounters', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.Encounter_ID)
+        return '''
+        Encounter: {} -- Episode: {} -- Member: {}
+        '''.format(str(self.Encounter_ID), str(self.episode.Episode_ID), str(self.episode.member.MemberID))
