@@ -3,9 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="53a6ed8f-7ff7-4637-bed4-3d1664d4b513" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_api/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/data_api/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_api/member_data/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_api/member_data/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_api/member_data/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_api/member_data/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/drf_writable_nested-0.5.1-py3.6.egg-info/PKG-INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/drf_writable_nested-0.5.1-py3.6.egg-info/SOURCES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/drf_writable_nested-0.5.1-py3.6.egg-info/dependency_links.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/drf_writable_nested-0.5.1-py3.6.egg-info/installed-files.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/drf_writable_nested-0.5.1-py3.6.egg-info/not-zip-safe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/drf_writable_nested-0.5.1-py3.6.egg-info/top_level.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/drf_writable_nested/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/drf_writable_nested/mixins.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/lib/python3.6/site-packages/drf_writable_nested/serializers.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1571899522150</updated>
       <workItem from="1571899528554" duration="27112000" />
-      <workItem from="1571987758948" duration="1661000" />
+      <workItem from="1571987758948" duration="17014000" />
     </task>
     <servers />
   </component>
