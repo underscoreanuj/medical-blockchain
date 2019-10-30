@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
+    path('', schema_view, name='swagger-view'),
     path('list_members', MembersListView.as_view(), name='all-members'),
     path('get_member/<slug:MemberID>', MemberView.as_view(), name='get-member'),
     path('set_member/<slug:MemberID>', MemberView.as_view(), name='set-member'),

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # installed libraries
     'rest_framework',
+    'rest_framework_swagger',
 
     # installed apps
     'member_data'
@@ -105,6 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SWAGGER_SETTINGS = {
+    'JSON_EDITOR': True,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

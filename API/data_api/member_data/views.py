@@ -2,18 +2,27 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import json
-from rest_framework import generics
+from rest_framework.generics import GenericAPIView
 
 from .serializers import *
 from .models import *
 
 import ipfsApi
 
+from rest_framework_swagger.views import get_swagger_view
 
-class MembersListView(APIView):
+schema_view = get_swagger_view(title='IPFS API')
+
+
+class MembersListView(GenericAPIView):
     """
-    Provides a get method handler.
+    Provides a list of active members
     """
+
+    queryset = Member.objects.all()
+    model = Member
+    serializer_class = MemberSerializer
+
 
     def get(self, requset):
         queryset = Member.objects.all()
@@ -21,10 +30,18 @@ class MembersListView(APIView):
         return Response(serializer.data)
 
 
-class MemberView(APIView):
+class MemberView(GenericAPIView):
     """
-    Provides a get method handler.
+    Provides a get & post method handler for individual members (ADMINISTRATIVE USE ONLY)
     """
+
+    queryset = Member.objects.all()
+    model = Member
+    serializer_class = MemberSerializer
+
+    queryset = Episode.objects.all()
+    model = Episode
+    serializer_class = EpisodeSerializer
 
     def get(self, request, MemberID):
         queryset = Member.objects.get(MemberID=MemberID)
@@ -45,7 +62,15 @@ class MemberView(APIView):
         return Response({"done": True})
 
 
-class AddEpisode(APIView):
+class AddEpisode(GenericAPIView):
+    """
+    Provides a post method handler for adding an episode for a member
+    """
+
+    queryset = Episode.objects.all()
+    model = Episode
+    serializer_class = EpisodeSerializer
+
     def post(self, request):
         data = json.loads(request.body)['episode_data']
         data['HistoryHash'] = None
@@ -83,7 +108,15 @@ def add_encounter_util(encounter_data, Klass, KlassSerializer, tag=''):
     return ret, True
 
 
-class AddEncounter(APIView):
+class AddEncounter(GenericAPIView):
+    """
+    Provides a post method handler for adding an encounter for a episode
+    """
+
+    queryset = Medical.objects.all()
+    model = Medical
+    serializer_class = MedicalSerializer
+
     def post(self, request):
         data = json.loads(request.body)['encounter_data']
 
@@ -124,7 +157,8 @@ class AddEncounter(APIView):
 def episode_to_ipfs(episode_id):
     if Episode.objects.filter(pk=episode_id).exists():
         episode_obj = Episode.objects.get(pk=episode_id)
-        member_obj = Member.objects.get(pk=episode_obj.member)
+        print(episode_obj.member.MemberID)
+        member_obj = Member.objects.get(pk=episode_obj.member.MemberID)
 
         try:
             client = ipfsApi.Client('127.0.0.1', 5001)
@@ -139,7 +173,9 @@ def episode_to_ipfs(episode_id):
             episode_json = EpisodeSerializer(episode_obj).data
 
             episode_hash = client.add_json(episode_json)
+            print(episode_hash)
             member_obj.LastHash = episode_hash
+            member_obj.save()
             episode_obj.delete()
         except Exception as e:
             print(e)
@@ -151,7 +187,15 @@ def episode_to_ipfs(episode_id):
     return True
 
 
-class DeactivateEpisode(APIView):
+class DeactivateEpisode(GenericAPIView):
+    """
+    Provides a post method handler for adding an episode to IPFS
+    """
+
+    queryset = Episode.objects.all()
+    model = Episode
+    serializer_class = EpisodeSerializer
+
     def post(self, request):
         episode_id = json.loads(request.body)['episode_id']
         if episode_to_ipfs(episode_id):
