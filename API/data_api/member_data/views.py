@@ -138,7 +138,6 @@ def episode_to_ipfs(episode_id):
 
             episode_json = EpisodeSerializer(episode_obj).data
 
-            # some code to push json data into ipfs and get a hash
             episode_hash = client.add_json(episode_json)
             member_obj.LastHash = episode_hash
             episode_obj.delete()
@@ -155,3 +154,8 @@ def episode_to_ipfs(episode_id):
 class DeactivateEpisode(APIView):
     def post(self, request):
         episode_id = json.loads(request.body)['episode_id']
+        if episode_to_ipfs(episode_id):
+            return Response({"Success": "Episode added to ipfs"})
+        else:
+            return Response({"ERROR!!!": "could not push the episode to ipfs"})
+

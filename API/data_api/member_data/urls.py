@@ -8,4 +8,5 @@ urlpatterns = [
     path('create_member', MemberView.as_view(), name='create-member'),
     path('create_episode', AddEpisode.as_view(), name='create-episode'),
     path('create_encounter', AddEncounter.as_view(), name='create-encounter'),
+    path('deactivate_episode', DeactivateEpisode.as_view(), name='deactivate-episode'),
 ]
