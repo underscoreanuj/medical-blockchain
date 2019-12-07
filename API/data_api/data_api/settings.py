@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # installed libraries
     'rest_framework',
     'rest_framework_swagger',
+    'django_extensions',
 
     # installed apps
     'member_data'
